@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IUserDao">
+	<sql id="all">
+	SELECT
+	id id,
+	userName userName,
+	PASSWORD PASSWORD,
+	nickName nickName,
+	audit audit
+	FROM
+		t_user
+	</sql>
+	<insert id="addUser">
+		insert into t_User
+		values (
+			#{id},
+	        #{userName},
+	        #{password},
+	        #{nickName},
+	        #{audit});
+	</insert>
+	<update id="updateUser">
+	UPDATE t_user
+	SET userName = #{userName},
+	 PASSWORD = #{password},
+	 nickName = #{nickName},
+	 audit = #{audit}
+	WHERE
+	id = #{id}
+	</update>
+	<delete id="deleteUser">
+		delete
+		from t_User
+		where id = #{id};
+	</delete>
+	<select id="findById" resultType="com.entity.UserEntity">
+		<include refid="all"/>
+		      where id = #{id}		
+	</select>
+	<select id="findAll" resultType="com.entity.UserEntity">
+		<include refid="all"/>
+	</select>
+	<select id="login" resultType="com.entity.UserEntity">
+		<include refid="all"/>
+		where userName=#{userName} and password=#{password}
+	</select>
+</mapper>
